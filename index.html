@@ -44,6 +44,27 @@
             -webkit-text-fill-color: transparent;
         }
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+            lazyImages.forEach(img => {
+                // Function to handle image load
+                const handleLoad = () => {
+                    const skeleton = img.previousElementSibling;
+                    if (skeleton && skeleton.classList.contains('animate-pulse')) {
+                        skeleton.style.display = 'none';
+                    }
+                    img.style.opacity = ''; // Hapus inline style opacity:0 agar class tailwind (opacity-70/90) aktif
+                };
+
+                if (img.complete) {
+                    handleLoad();
+                } else {
+                    img.addEventListener('load', handleLoad);
+                }
+            });
+        });
+    </script>
 </head>
 
 <body class="bg-dark text-slate-300 antialiased selection:bg-primary selection:text-white">
@@ -143,9 +164,12 @@
                         class="absolute inset-0 bg-gradient-to-tr from-primary/30 to-purple-500/30 rounded-[3rem] rotate-6 transform transition-transform hover:rotate-2">
                     </div>
                     <div
-                        class="glass absolute inset-0 rounded-[3rem] overflow-hidden -rotate-2 transform transition-transform hover:rotate-1">
-                        <img src="assets/imgs/avatar2.png" alt="Isa Maulana Tantra"
-                            class="w-full h-full object-cover opacity-90 scale-105 hover:scale-110 transition-transform duration-700">
+                        class="glass absolute inset-0 rounded-[3rem] overflow-hidden -rotate-2 transform transition-transform hover:rotate-1 bg-slate-800">
+                        <!-- Skeleton -->
+                        <div class="absolute inset-0 bg-slate-700 animate-pulse z-10 transition-opacity duration-500">
+                        </div>
+                        <img src="assets/imgs/avatar2.png" alt="Isa Maulana Tantra" loading="lazy" style="opacity: 0;"
+                            class="w-full h-full object-cover opacity-90 scale-105 hover:scale-110 transition-all duration-700 relative z-20">
                     </div>
                 </div>
             </div>
@@ -357,8 +381,10 @@
                 <!-- Project Card 1 -->
                 <div
                     class="group relative rounded-2xl overflow-hidden aspect-video bg-slate-800 border border-slate-700 hover:border-primary/50 transition-all duration-300">
-                    <img src="assets/imgs/project/pesonafm.png" alt="Pesona FM"
-                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-70 group-hover:opacity-40">
+                    <!-- Skeleton -->
+                    <div class="absolute inset-0 bg-slate-700 animate-pulse z-10"></div>
+                    <img src="assets/imgs/project/pesonafm.png" alt="Pesona FM" loading="lazy" style="opacity: 0;"
+                        class="absolute inset-0 w-full h-full object-cover opacity-70 transition-transform duration-500 group-hover:scale-110 group-hover:opacity-40 z-20">
                     <div
                         class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-slate-900 via-slate-900/90 to-transparent translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                         <h3 class="text-xl font-bold text-white mb-1">Pesona FM</h3>
@@ -378,8 +404,10 @@
                 <!-- Project Card 2 -->
                 <div
                     class="group relative rounded-2xl overflow-hidden aspect-video bg-slate-800 border border-slate-700 hover:border-primary/50 transition-all duration-300">
-                    <img src="assets/imgs/project/eagenda.png" alt="E-Agenda"
-                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-70 group-hover:opacity-40">
+                    <!-- Skeleton -->
+                    <div class="absolute inset-0 bg-slate-700 animate-pulse z-10"></div>
+                    <img src="assets/imgs/project/eagenda.png" alt="E-Agenda" loading="lazy" style="opacity: 0;"
+                        class="absolute inset-0 w-full h-full object-cover opacity-70 transition-transform duration-500 group-hover:scale-110 group-hover:opacity-40 z-20">
                     <div
                         class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-slate-900 via-slate-900/90 to-transparent translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                         <h3 class="text-xl font-bold text-white mb-1">E-Agenda</h3>
@@ -399,8 +427,10 @@
                 <!-- Project Card 3 -->
                 <div
                     class="group relative rounded-2xl overflow-hidden aspect-video bg-slate-800 border border-slate-700 hover:border-primary/50 transition-all duration-300">
-                    <img src="assets/imgs/project/soboaksi.png" alt="Sobo Aksi"
-                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-70 group-hover:opacity-40">
+                    <!-- Skeleton -->
+                    <div class="absolute inset-0 bg-slate-700 animate-pulse z-10"></div>
+                    <img src="assets/imgs/project/soboaksi.png" alt="Sobo Aksi" loading="lazy" style="opacity: 0;"
+                        class="absolute inset-0 w-full h-full object-cover opacity-70 transition-transform duration-500 group-hover:scale-110 group-hover:opacity-40 z-20">
                     <div
                         class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-slate-900 via-slate-900/90 to-transparent translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                         <h3 class="text-xl font-bold text-white mb-1">Sobo Aksi</h3>
@@ -420,8 +450,10 @@
                 <!-- Project Card 4 -->
                 <div
                     class="group relative rounded-2xl overflow-hidden aspect-video bg-slate-800 border border-slate-700 hover:border-primary/50 transition-all duration-300">
-                    <img src="assets/imgs/project/mpp.png" alt="MPP"
-                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-70 group-hover:opacity-40">
+                    <!-- Skeleton -->
+                    <div class="absolute inset-0 bg-slate-700 animate-pulse z-10"></div>
+                    <img src="assets/imgs/project/mpp.png" alt="MPP" loading="lazy" style="opacity: 0;"
+                        class="absolute inset-0 w-full h-full object-cover opacity-70 transition-transform duration-500 group-hover:scale-110 group-hover:opacity-40 z-20">
                     <div
                         class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-slate-900 via-slate-900/90 to-transparent translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                         <h3 class="text-xl font-bold text-white mb-1">Mall Pelayanan Publik</h3>
@@ -441,8 +473,10 @@
                 <!-- Project Card 5 -->
                 <div
                     class="group relative rounded-2xl overflow-hidden aspect-video bg-slate-800 border border-slate-700 hover:border-primary/50 transition-all duration-300">
-                    <img src="assets/imgs/project/spbe.png" alt="SPBE"
-                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-70 group-hover:opacity-40">
+                    <!-- Skeleton -->
+                    <div class="absolute inset-0 bg-slate-700 animate-pulse z-10"></div>
+                    <img src="assets/imgs/project/spbe.png" alt="SPBE" loading="lazy" style="opacity: 0;"
+                        class="absolute inset-0 w-full h-full object-cover opacity-70 transition-transform duration-500 group-hover:scale-110 group-hover:opacity-40 z-20">
                     <div
                         class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-slate-900 via-slate-900/90 to-transparent translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                         <h3 class="text-xl font-bold text-white mb-1">Website SPBE</h3>
@@ -462,8 +496,10 @@
                 <!-- Project Card 6 -->
                 <div
                     class="group relative rounded-2xl overflow-hidden aspect-video bg-slate-800 border border-slate-700 hover:border-primary/50 transition-all duration-300">
-                    <img src="assets/imgs/project/siparekraf.png" alt="Siparekraf"
-                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-70 group-hover:opacity-40">
+                    <!-- Skeleton -->
+                    <div class="absolute inset-0 bg-slate-700 animate-pulse z-10"></div>
+                    <img src="assets/imgs/project/siparekraf.png" alt="Siparekraf" loading="lazy" style="opacity: 0;"
+                        class="absolute inset-0 w-full h-full object-cover opacity-70 transition-transform duration-500 group-hover:scale-110 group-hover:opacity-40 z-20">
                     <div
                         class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-slate-900 via-slate-900/90 to-transparent translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                         <h3 class="text-xl font-bold text-white mb-1">Siparekraf</h3>
@@ -502,8 +538,12 @@
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="glass p-6 rounded-2xl text-left">
                     <div class="flex items-center gap-4 mb-4">
-                        <img src="assets/imgs/avatar-1.jpg" alt="Layly"
-                            class="w-12 h-12 rounded-full object-cover ring-2 ring-primary/50">
+                        <div
+                            class="relative w-12 h-12 rounded-full overflow-hidden ring-2 ring-primary/50 bg-slate-800 shrink-0">
+                            <div class="absolute inset-0 bg-slate-700 animate-pulse z-10"></div>
+                            <img src="assets/imgs/avatar-1.jpg" alt="Layly" loading="lazy" style="opacity: 0;"
+                                class="w-full h-full object-cover transition-opacity duration-300 relative z-20">
+                        </div>
                         <div>
                             <h4 class="text-white font-bold text-sm">Layly Nurul</h4>
                             <p class="text-xs text-slate-400">DevOps</p>
@@ -515,8 +555,12 @@
 
                 <div class="glass p-6 rounded-2xl text-left scale-105 border-primary/30 shadow-lg shadow-primary/10">
                     <div class="flex items-center gap-4 mb-4">
-                        <img src="assets/imgs/avatar-2.jpg" alt="Damar"
-                            class="w-12 h-12 rounded-full object-cover ring-2 ring-primary/50">
+                        <div
+                            class="relative w-12 h-12 rounded-full overflow-hidden ring-2 ring-primary/50 bg-slate-800 shrink-0">
+                            <div class="absolute inset-0 bg-slate-700 animate-pulse z-10"></div>
+                            <img src="assets/imgs/avatar-2.jpg" alt="Damar" loading="lazy" style="opacity: 0;"
+                                class="w-full h-full object-cover transition-opacity duration-300 relative z-20">
+                        </div>
                         <div>
                             <h4 class="text-white font-bold text-sm">Damar Wisnu</h4>
                             <p class="text-xs text-slate-400">Back End Developer</p>
@@ -528,8 +572,12 @@
 
                 <div class="glass p-6 rounded-2xl text-left">
                     <div class="flex items-center gap-4 mb-4">
-                        <img src="assets/imgs/avatar-3.jpg" alt="Devan"
-                            class="w-12 h-12 rounded-full object-cover ring-2 ring-primary/50">
+                        <div
+                            class="relative w-12 h-12 rounded-full overflow-hidden ring-2 ring-primary/50 bg-slate-800 shrink-0">
+                            <div class="absolute inset-0 bg-slate-700 animate-pulse z-10"></div>
+                            <img src="assets/imgs/avatar-3.jpg" alt="Devan" loading="lazy" style="opacity: 0;"
+                                class="w-full h-full object-cover transition-opacity duration-300 relative z-20">
+                        </div>
                         <div>
                             <h4 class="text-white font-bold text-sm">Devan Dewa</h4>
                             <p class="text-xs text-slate-400">Web Developer</p>

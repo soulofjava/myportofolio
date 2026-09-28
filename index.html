@@ -1,665 +1,970 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Portofolio Isa Maulana Tantra, Full-Stack Website Developer berbasis di Wonosobo.">
-    <meta name="author" content="Isa Maulana Tantra">
-    <title>Isa Maulana Tantra | Full-Stack Developer</title>
-    <link rel="shortcut icon" href="assets/imgs/avatar-removebg-preview.png" type="image/png">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                    },
-                    colors: {
-                        dark: '#0f172a',
-                        primary: '#6366f1',
-                        secondary: '#a855f7',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        .glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOULOFJAVA LABS | Digital Engineering Studio • Isa Maulana (Think Tank)</title>
+  <meta name="description"
+    content="Laboratorium rekayasa perangkat lunak independen SOULOFJAVA LABS. Dipimpin oleh Isa Maulana Tantra, S.Kom (Think Tank & Principal Architect) — Spesialis Enterprise Web, Mobile App (Kotlin, Java, Flutter), dan Arsitektur Cloud.">
+  <meta name="author" content="SOULOFJAVA LABS / Isa Maulana Tantra">
 
-        .gradient-text {
-            background: linear-gradient(to right, #818cf8, #c084fc);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-    </style>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-            lazyImages.forEach(img => {
-                // Function to handle image load
-                const handleLoad = () => {
-                    const skeleton = img.previousElementSibling;
-                    if (skeleton && skeleton.classList.contains('animate-pulse')) {
-                        skeleton.style.display = 'none';
-                    }
-                    img.style.opacity = ''; // Hapus inline style opacity:0 agar class tailwind (opacity-70/90) aktif
-                };
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="assets/imgs/avatar-removebg-preview.png" type="image/png">
 
-                if (img.complete) {
-                    handleLoad();
-                } else {
-                    img.addEventListener('load', handleLoad);
-                }
-            });
-        });
-    </script>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Icons (FontAwesome 6.5.1) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- GSAP for Smooth Transitions -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 
-<body class="bg-dark text-slate-300 antialiased selection:bg-primary selection:text-white">
+<body>
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass border-b-0">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex-shrink-0">
-                    <a href="#" class="text-2xl font-bold text-white tracking-tighter">IMT<span
-                            class="text-primary">.</span></a>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#home"
-                            class="hover:text-white transition-colors px-3 py-2 text-sm font-medium">Beranda</a>
-                        <a href="#about"
-                            class="hover:text-white transition-colors px-3 py-2 text-sm font-medium">Tentang</a>
-                        <a href="#works"
-                            class="hover:text-white transition-colors px-3 py-2 text-sm font-medium">Karya</a>
-                        <a href="#contact"
-                            class="px-4 py-2 rounded-full bg-slate-800 text-white text-sm font-medium hover:bg-slate-700 transition-all border border-slate-700">Hubungi
-                            Saya</a>
-                    </div>
-                </div>
-            </div>
+  <!-- Background Ambient Glow & Neural Canvas -->
+  <div class="noise-overlay"></div>
+  <canvas id="hero-canvas"></canvas>
+
+  <!-- Sticky Glass Navigation -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
         </div>
-    </nav>
+        <span class="brand-name">SOULOFJAVA<span>.LABS</span></span>
+      </a>
 
-    <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center pt-16 relative overflow-hidden">
-        <!-- Background Elements -->
-        <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-            <div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-primary/20 blur-[120px]">
-            </div>
-            <div
-                class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-secondary/10 blur-[120px]">
-            </div>
-        </div>
+      <nav class="nav-links">
+        <a href="#hero" class="nav-link active">Beranda</a>
+        <a href="#showcase" class="nav-link">Teknologi</a>
+        <a href="#bento" class="nav-link">Keahlian</a>
+        <a href="#works" class="nav-link">Karya</a>
+        <a href="#playground" class="nav-link">Terminal</a>
+        <a href="#testimonials" class="nav-link">Testimoni</a>
+        <a href="#contact" class="nav-link">Kontak</a>
+      </nav>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div class="space-y-8">
-                <div
-                    class="inline-flex items-center px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-sm font-medium">
-                    <span class="flex h-2 w-2 rounded-full bg-primary mr-2 animate-pulse"></span>
-                    Tersedia untuk Proyek Freelance
-                </div>
-                <h1 class="text-5xl lg:text-7xl font-bold text-white leading-tight">
-                    Membangun <br>
-                    <span class="gradient-text">Solusi Digital</span> <br>
-                    dari Wonosobo.
-                </h1>
-                <p class="text-lg text-slate-400 max-w-xl leading-relaxed">
-                    Halo, saya <strong>Isa Maulana Tantra</strong>. Seorang Full-Stack Developer yang fokus menciptakan
-                    aplikasi web berkinerja tinggi dan user-friendly. Mengubah ide kompleks menjadi kode yang elegan.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="#contact"
-                        class="px-8 py-4 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-bold shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all text-center">
-                        Mulai Kolaborasi
-                    </a>
-                    <a href="#works"
-                        class="px-8 py-4 rounded-full glass text-white font-medium hover:bg-white/5 transition-all text-center border border-slate-700">
-                        Lihat Portofolio
-                    </a>
-                </div>
+      <div class="nav-actions">
+        <a href="https://github.com/soulofjava" target="_blank" class="btn btn-ghost">
+          <i class="fa-brands fa-github"></i>
+          <span>GitHub</span>
+        </a>
+        <a href="https://api.whatsapp.com/send?phone=6285643710007&text=Halo%20Isa%2C%20saya%20tertarik%20untuk%20berkolaborasi%20pembuatan%20website%2Fsistem."
+          target="_blank" class="btn btn-primary">
+          <span>Mulai Kolaborasi</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
 
-                <div class="pt-8 flex gap-6 text-slate-400">
-                    <a href="https://github.com/soulofjava" target="_blank"
-                        class="hover:text-white transition-colors"><svg class="w-6 h-6" fill="currentColor"
-                            viewBox="0 0 24 24" aria-hidden="true">
-                            <path fill-rule="evenodd"
-                                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                                clip-rule="evenodd" />
-                        </svg></a>
-                    <a href="https://www.instagram.com/isamaulanatantra/?hl=id" target="_blank"
-                        class="hover:text-white transition-colors"><svg class="w-6 h-6" fill="currentColor"
-                            viewBox="0 0 24 24" aria-hidden="true">
-                            <path fill-rule="evenodd"
-                                d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772 4.902 4.902 0 011.772-1.153c.636-.247 1.363-.416 2.427-.465C9.673 2.013 10.03 2 12.484 2h.231zm-2.489 18.288c.87.043 1.966.05 2.959.054 1.037.005 2.053-.013 2.946-.054 1.13-.052 1.838-.283 2.27-.45a3.181 3.181 0 001.144-.751 3.181 3.181 0 00.751-1.144c.167-.432.398-1.14.45-2.27.044-.972.05-2.071.05-3.11 0-1.016-.006-2.091-.05-3.085-.052-1.13-.283-1.838-.45-2.27a3.181 3.181 0 00-.751-1.144 3.181 3.181 0 00-1.144-.751c-.432-.167-1.14-.398-2.27-.45-.968-.044-2.062-.05-3.095-.05-1.06 0-2.14.006-3.095.05-1.13.052-1.838.283-2.27.45a3.181 3.181 0 00-1.144.751 3.181 3.181 0 00-.751 1.144c-.167.432-.398 1.14-.45 2.27-.044.968-.05 2.062-.05 3.095 0 1.06.006 2.14.05 3.095.052 1.13.283 1.838.45 2.27a3.181 3.181 0 00.751 1.144 3.181 3.181 0 001.144.751c.432.167 1.14.398 2.27.45zM12.33 6.096c3.273 0 5.927 2.654 5.927 5.927 0 3.273-2.654 5.927-5.927 5.927-3.273 0-5.927-2.654-5.927-5.927 0-3.273 2.654-5.927 5.927-5.927zm0 1.947a3.98 3.98 0 100 7.96 3.98 3.98 0 000-7.96zm8.176-7.106a1.442 1.442 0 11-2.885 0 1.442 1.442 0 012.885 0z"
-                                clip-rule="evenodd" />
-                        </svg></a>
-                    <a href="https://www.youtube.com/channel/UCzAqbET_jZbJFjZGyv2dQxA" target="_blank"
-                        class="hover:text-white transition-colors"><svg class="w-6 h-6" fill="currentColor"
-                            viewBox="0 0 24 24" aria-hidden="true">
-                            <path fill-rule="evenodd"
-                                d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 01-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 01-1.768-1.768C2 15.255 2 12 2 12s0-3.254.418-4.814a2.506 2.506 0 011.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418zM15.194 12 10 15V9l5.194 3z"
-                                clip-rule="evenodd" />
-                        </svg></a>
-                </div>
+      <!-- Mobile Menu Toggle -->
+      <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#hero" class="mobile-link">Beranda</a>
+    <a href="#showcase" class="mobile-link">Teknologi</a>
+    <a href="#bento" class="mobile-link">Keahlian</a>
+    <a href="#works" class="mobile-link">Karya Pilihan</a>
+    <a href="#playground" class="mobile-link">Terminal & Estimator</a>
+    <a href="#testimonials" class="mobile-link">Testimoni</a>
+    <a href="#contact" class="mobile-link">Kontak</a>
+    <div class="mobile-actions">
+      <a href="https://api.whatsapp.com/send?phone=6285643710007&text=Halo%20Isa%2C%20saya%20tertarik%20untuk%20berkolaborasi."
+        target="_blank" class="btn btn-primary w-full">Hubungi Sekarang (WhatsApp)</a>
+    </div>
+  </div>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="hero-atmospheric-shadow"></div>
+
+      <div class="container hero-content">
+        <div class="hero-grid-layout">
+          <!-- Left Text Block -->
+          <div class="hero-text-block">
+            <!-- Badge -->
+            <div class="hero-badge animate-fade-in">
+              <span class="badge-dot"></span>
+              <span class="badge-text">✦ SOULOFJAVA LABS ✦ THINK TANK: ISA MAULANA (UKSW 2017) ✦ WEB & MOBILE</span>
             </div>
 
-            <div class="relative hidden lg:block">
-                <div class="relative w-full h-[600px] flex items-center justify-center">
-                    <!-- Photo blobs -->
-                    <div
-                        class="absolute inset-0 bg-gradient-to-tr from-primary/30 to-purple-500/30 rounded-[3rem] rotate-6 transform transition-transform hover:rotate-2">
-                    </div>
-                    <div
-                        class="glass absolute inset-0 rounded-[3rem] overflow-hidden -rotate-2 transform transition-transform hover:rotate-1 bg-slate-800">
-                        <!-- Skeleton -->
-                        <div class="absolute inset-0 bg-slate-700 animate-pulse z-10 transition-opacity duration-500">
-                        </div>
-                        <img src="assets/imgs/avatar2.png" alt="Isa Maulana Tantra" loading="lazy" style="opacity: 0;"
-                            class="w-full h-full object-cover opacity-90 scale-105 hover:scale-110 transition-all duration-700 relative z-20">
-                    </div>
-                </div>
+            <!-- Headline & Copy -->
+            <h1 class="hero-title animate-slide-up">
+              Engineering Lab untuk Solusi Web & <span class="text-gradient-purple">Aplikasi Mobile Berkinerja Tinggi.</span>
+            </h1>
+            <p class="hero-description animate-slide-up delay-1">
+              <strong>SOULOFJAVA LABS</strong> adalah studio rekayasa perangkat lunak independen yang dipimpin oleh <strong>Isa Maulana Tantra, S.Kom</strong> sebagai <em>Think Tank & Principal Architect</em>. Berdedikasi lebih dari 8 tahun (sejak 2018) merancang arsitektur sistem enterprise, digitalisasi layanan publik, serta aplikasi mobile native & multiplatform (Kotlin, Java, Flutter).
+            </p>
+
+            <div class="hero-cta-group animate-slide-up delay-2">
+              <a href="#contact" class="btn btn-hero-cta">
+                <span class="btn-glow"></span>
+                <span class="relative-z">Mulai Kolaborasi <i class="fa-solid fa-paper-plane"></i></span>
+              </a>
+              <a href="#works" class="btn btn-secondary">
+                <i class="fa-solid fa-laptop-code"></i>
+                <span>Jelajahi Kapabilitas</span>
+              </a>
             </div>
-        </div>
-    </section>
 
-    <!-- About / Story Section -->
-    <section id="about" class="py-24 relative">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6">
-            <div class="glass p-8 md:p-12 rounded-3xl border-t border-white/10">
-                <span class="text-primary font-bold tracking-wider uppercase text-sm mb-4 block">Tentang Saya</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-8">Perjalanan Kode & Kreativitas</h2>
-
-                <div class="space-y-6 text-slate-300 leading-relaxed text-lg">
-                    <p>
-                        Awal karir profesional saya dimulai setelah lulus dari <strong>UKSW (Universitas Kristen Satya
-                            Wacana)</strong> pada tahun 2017 dengan gelar S.Kom. Sejak 2018, saya telah mendedikasikan
-                        diri sepenuhnya di dunia pemrograman, mengubah baris kode menjadi solusi nyata.
-                    </p>
-                    <p>
-                        Spesialisasi saya ada pada pengembangan berbasis web, khususnya menggunakan ekosistem
-                        <strong>PHP</strong> dan <strong>Laravel</strong>. Banyak dari karya saya berfokus pada
-                        digitalisasi layanan publik, membantu instansi pemerintahan memberikan pelayanan yang lebih
-                        cepat, transparan, dan mudah diakses oleh masyarakat.
-                    </p>
-                    <p>
-                        Di luar dunia coding, saya menemukan keseimbangan melalui musik. Saya percaya bahwa struktur
-                        kode yang rapi memiliki keindahan yang sama dengan harmoni sebuah lagu.
-                    </p>
-                </div>
-
-                <!-- Stats -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 pt-12 border-t border-slate-700/50">
-                    <div>
-                        <div class="text-3xl font-bold text-white">4+</div>
-                        <div class="text-sm text-slate-400">Tahun Pengalaman</div>
-                    </div>
-                    <div>
-                        <div class="text-3xl font-bold text-white">20+</div>
-                        <div class="text-sm text-slate-400">Proyek Selesai</div>
-                    </div>
-                    <div>
-                        <div class="text-3xl font-bold text-white">71+</div>
-                        <div class="text-sm text-slate-400">Klien Puas</div>
-                    </div>
-                    <div>
-                        <div class="text-3xl font-bold text-white">1</div>
-                        <div class="text-sm text-slate-400">Penghargaan</div>
-                    </div>
-                </div>
+            <!-- Feature micro-stats -->
+            <div class="hero-stats-row animate-slide-up delay-3">
+              <div class="micro-stat">
+                <span class="stat-value">8+ Tahun</span>
+                <span class="stat-label">Pengalaman (Sejak 2018)</span>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="micro-stat">
+                <span class="stat-value">20+</span>
+                <span class="stat-label">Platform Produksi</span>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="micro-stat">
+                <span class="stat-value">71+</span>
+                <span class="stat-label">Klien & Instansi</span>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="micro-stat">
+                <span class="stat-value">Web & Mobile</span>
+                <span class="stat-label">Full-Stack Scope</span>
+              </div>
             </div>
-        </div>
-    </section>
+          </div>
 
-    <!-- Services & Skills -->
-    <section class="py-24 bg-slate-900/50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-2 gap-16">
-                <!-- Services -->
+          <!-- Right Profile Visual Card -->
+          <div class="hero-profile-container animate-fade-in">
+            <div class="hero-profile-glow"></div>
+            <div class="hero-profile-card">
+              <div class="profile-badge-float">
+                <span class="badge-dot"></span>
+                <span>The Think Tank</span>
+              </div>
+              <div class="profile-img-wrap">
+                <img src="assets/imgs/avatar2.png" alt="Isa Maulana Tantra">
+              </div>
+              <div class="profile-card-footer">
                 <div>
-                    <h3 class="text-2xl font-bold text-white mb-8">Layanan Saya</h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="glass p-6 rounded-2xl hover:bg-white/5 transition-colors">
-                            <div
-                                class="w-10 h-10 rounded-lg bg-primary/20 text-primary flex items-center justify-center mb-4">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <h4 class="text-lg font-semibold text-white mb-2">Pengembangan Website</h4>
-                            <p class="text-sm text-slate-400">Membangun website responsif dan performa tinggi dengan
-                                teknologi modern.</p>
-                        </div>
-                        <div class="glass p-6 rounded-2xl hover:bg-white/5 transition-colors">
-                            <div
-                                class="w-10 h-10 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center mb-4">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01">
-                                    </path>
-                                </svg>
-                            </div>
-                            <h4 class="text-lg font-semibold text-white mb-2">Desain UI/UX</h4>
-                            <p class="text-sm text-slate-400">Merancang antarmuka yang estetis dan pengalaman pengguna
-                                yang intuitif.</p>
-                        </div>
-                        <div class="glass p-6 rounded-2xl hover:bg-white/5 transition-colors">
-                            <div
-                                class="w-10 h-10 rounded-lg bg-pink-500/20 text-pink-400 flex items-center justify-center mb-4">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <h4 class="text-lg font-semibold text-white mb-2">Pengembangan Aplikasi Mobile</h4>
-                            <p class="text-sm text-slate-400">Membangun aplikasi mobile multi-platform (Android & iOS)
-                                dengan Flutter.</p>
-                        </div>
-                        <div class="glass p-6 rounded-2xl hover:bg-white/5 transition-colors">
-                            <div
-                                class="w-10 h-10 rounded-lg bg-teal-500/20 text-teal-400 flex items-center justify-center mb-4">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                                </svg>
-                            </div>
-                            <h4 class="text-lg font-semibold text-white mb-2">Optimasi SEO</h4>
-                            <p class="text-sm text-slate-400">Optimasi agar website mudah ditemukan di mesin pencari.
-                            </p>
-                        </div>
-                    </div>
+                  <div class="profile-card-name">
+                    <span>Isa Maulana Tantra, S.Kom</span>
+                    <i class="fa-solid fa-circle-check text-gradient-purple" title="Verified Professional"></i>
+                  </div>
+                  <div class="profile-card-role">Think Tank & Principal Architect • SOULOFJAVA LABS</div>
                 </div>
+                <div class="profile-tags-row">
+                  <span class="profile-mini-tag">Laravel</span>
+                  <span class="profile-mini-tag">PHP</span>
+                  <span class="profile-mini-tag">Golang</span>
+                  <span class="profile-mini-tag">Kotlin</span>
+                  <span class="profile-mini-tag">Java</span>
+                  <span class="profile-mini-tag">Flutter</span>
+                  <span class="profile-mini-tag">MySQL</span>
+                  <span class="profile-mini-tag">Docker</span>
+                </div>
+                <div class="profile-social-row">
+                  <a href="https://github.com/soulofjava" target="_blank" class="profile-social-btn" title="GitHub">
+                    <i class="fa-brands fa-github"></i>
+                  </a>
+                  <a href="https://www.instagram.com/isamaulanatantra/?hl=id" target="_blank" class="profile-social-btn" title="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                  </a>
+                  <a href="https://www.youtube.com/channel/UCzAqbET_jZbJFjZGyv2dQxA" target="_blank" class="profile-social-btn" title="YouTube">
+                    <i class="fa-brands fa-youtube"></i>
+                  </a>
+                  <a href="https://api.whatsapp.com/send?phone=6285643710007" target="_blank" class="profile-social-btn" title="WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-                <!-- Skills -->
+        <!-- Scroll Indicator Hint -->
+        <div class="scroll-hint">
+          <span>Scroll ke bawah untuk eksplorasi</span>
+          <div class="scroll-mouse">
+            <div class="scroll-wheel"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MASSIVE OVERSIZED BRAND TEXT (90vw wide, centered horizontally at bottom) -->
+      <div class="hero-oversized-brand" aria-hidden="true">
+        <h2 class="brand-billboard">SOUL OF JAVA</h2>
+      </div>
+    </section>
+
+    <!-- INFINITE TECH STACK MARQUEE (Two Rows) -->
+    <section class="partners-section" id="showcase">
+      <div class="container text-center section-tag-container">
+        <span class="section-mini-tag">✦ TECH STACK & ECOSYSTEM ✦</span>
+      </div>
+
+      <!-- Row 1: Languages & Frameworks (Right to Left) -->
+      <div class="marquee-wrapper">
+        <div class="marquee-track track-left">
+          <div class="partner-card"><i class="fa-brands fa-laravel"></i> Laravel</div>
+          <div class="partner-card"><i class="fa-brands fa-php"></i> PHP</div>
+          <div class="partner-card"><i class="fa-brands fa-android" style="color:#3ddc84;"></i> Kotlin (Android)</div>
+          <div class="partner-card"><i class="fa-brands fa-java" style="color:#f89820;"></i> Java (Android)</div>
+          <div class="partner-card"><i class="fa-solid fa-mobile-screen" style="color:#38bdf8;"></i> Flutter & Dart</div>
+          <div class="partner-card"><i class="fa-solid fa-database"></i> MySQL & MariaDB</div>
+          <div class="partner-card"><i class="fa-brands fa-js"></i> JavaScript ES6+</div>
+          <div class="partner-card"><i class="fa-brands fa-vuejs"></i> Vue.js</div>
+          <div class="partner-card"><i class="fa-brands fa-golang"></i> Golang</div>
+          <div class="partner-card"><i class="fa-solid fa-wind"></i> TailwindCSS</div>
+          <!-- Duplicate for seamless infinite loop -->
+          <div class="partner-card"><i class="fa-brands fa-laravel"></i> Laravel</div>
+          <div class="partner-card"><i class="fa-brands fa-php"></i> PHP</div>
+          <div class="partner-card"><i class="fa-brands fa-android" style="color:#3ddc84;"></i> Kotlin (Android)</div>
+          <div class="partner-card"><i class="fa-brands fa-java" style="color:#f89820;"></i> Java (Android)</div>
+          <div class="partner-card"><i class="fa-solid fa-mobile-screen" style="color:#38bdf8;"></i> Flutter & Dart</div>
+          <div class="partner-card"><i class="fa-solid fa-database"></i> MySQL & MariaDB</div>
+          <div class="partner-card"><i class="fa-brands fa-js"></i> JavaScript ES6+</div>
+          <div class="partner-card"><i class="fa-brands fa-vuejs"></i> Vue.js</div>
+          <div class="partner-card"><i class="fa-brands fa-golang"></i> Golang</div>
+          <div class="partner-card"><i class="fa-solid fa-wind"></i> TailwindCSS</div>
+        </div>
+      </div>
+
+      <!-- Row 2: Infrastructure & Tools (Left to Right) -->
+      <div class="marquee-wrapper mt-4">
+        <div class="marquee-track track-right">
+          <div class="partner-card"><i class="fa-brands fa-docker"></i> Docker Containers</div>
+          <div class="partner-card"><i class="fa-brands fa-linux"></i> Linux Server (PDNS)</div>
+          <div class="partner-card"><i class="fa-brands fa-git-alt"></i> Git & CI/CD</div>
+          <div class="partner-card"><i class="fa-solid fa-layer-group"></i> Clean Architecture</div>
+          <div class="partner-card"><i class="fa-solid fa-network-wired"></i> RESTful API</div>
+          <div class="partner-card"><i class="fa-solid fa-mobile-screen"></i> Flutter Mobile</div>
+          <div class="partner-card"><i class="fa-solid fa-server"></i> Nginx Proxy</div>
+          <div class="partner-card"><i class="fa-solid fa-bolt"></i> Redis Caching</div>
+          <!-- Duplicate for seamless loop -->
+          <div class="partner-card"><i class="fa-brands fa-docker"></i> Docker Containers</div>
+          <div class="partner-card"><i class="fa-brands fa-linux"></i> Linux Server (PDNS)</div>
+          <div class="partner-card"><i class="fa-brands fa-git-alt"></i> Git & CI/CD</div>
+          <div class="partner-card"><i class="fa-solid fa-layer-group"></i> Clean Architecture</div>
+          <div class="partner-card"><i class="fa-solid fa-network-wired"></i> RESTful API</div>
+          <div class="partner-card"><i class="fa-solid fa-mobile-screen"></i> Flutter Mobile</div>
+          <div class="partner-card"><i class="fa-solid fa-server"></i> Nginx Proxy</div>
+          <div class="partner-card"><i class="fa-solid fa-bolt"></i> Redis Caching</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ASYMMETRIC BENTO GRID (Keahlian & Keunggulan) -->
+    <section class="bento-section" id="bento">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="badge-mini">✦ PILAR KEAHLIAN & FILOSOFI ✦</span>
+          <h2 class="section-title">
+            Komitmen pada <span class="text-gradient-purple">Kualitas Kode & Kinerja</span>
+          </h2>
+          <p class="section-subtitle">
+            Dari perencanaan skema database relasional hingga performa rendering antarmuka pengguna, setiap solusi dirancang secara modular, terukur, dan aman.
+          </p>
+        </div>
+
+        <div class="bento-grid">
+          <!-- Bento 1: Large Span 2 - Clean Architecture & Backend Code -->
+          <div class="bento-card bento-card-large">
+            <div class="card-glow"></div>
+            <div class="card-badge">
+              <i class="fa-solid fa-code"></i>
+              <span>Full-Stack Architecture</span>
+            </div>
+            <h3 class="card-title">Clean Code, Domain Services & Optimal Caching</h3>
+            <p class="card-desc">
+              Penerapan prinsip Clean Architecture, Repository Pattern, dan optimasi query database memastikan aplikasi tetap responsif saat menangani ribuan permohonan layanan secara bersamaan.
+            </p>
+
+            <div class="prompt-chip-group" style="margin-top: 1rem; margin-bottom: 1rem;">
+              <button class="chip active" data-snippet="clean">Domain Service</button>
+              <button class="chip" data-snippet="perf">Query & Redis Cache</button>
+              <button class="chip" data-snippet="api">REST API & Microservices</button>
+            </div>
+
+            <!-- Interactive Terminal Snippet Viewport -->
+            <div style="background: #090812; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 1.25rem; overflow-x: auto;">
+              <pre id="bento-code-content" style="font-family: var(--font-mono); font-size: 0.8rem; color: #a5b4fc; line-height: 1.6; margin: 0;">// Clean Architecture / Domain Driven Service
+namespace App\Services\Domain;
+
+class CoreTransactionService {
+    public function __construct(
+        protected TransactionRepository $repo,
+        protected AuditLogger $logger
+    ) {}
+
+    public function process(TransactionDTO $dto): Response {
+        $result = $this->repo->createWithAtomicLock($dto);
+        $this->logger->recordAudit('Transaction', $dto->userId);
+        return Response::success($result);
+    }
+}</pre>
+            </div>
+          </div>
+
+          <!-- Bento 2: Cloud & Server Infrastructure -->
+          <div class="bento-card bento-card-medium">
+            <div class="card-glow"></div>
+            <div class="card-badge">
+              <i class="fa-solid fa-server"></i>
+              <span>Cloud & Infrastructure</span>
+            </div>
+            <h3 class="card-title">Linux Server & High Availability</h3>
+            <p class="card-desc">
+              Manajemen server produksi PDNS/VPS Linux, konfigurasi Nginx reverse proxy, isolasi Docker container, dan automated deployment CI/CD untuk keandalan 99.9%.
+            </p>
+            <div style="margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.825rem; color: var(--text-muted);">
+                <span>Production Uptime Target</span>
+                <span style="color: #34d399; font-weight: 700;">99.9% Reliable</span>
+              </div>
+              <div style="height: 6px; background: rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden;">
+                <div style="width: 99.9%; height: 100%; background: linear-gradient(90deg, #10b981, #06b6d4);"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bento 3: GovTech & Layanan Publik Specialist -->
+          <div class="bento-card bento-card-medium">
+            <div class="card-glow"></div>
+            <div class="card-badge">
+              <i class="fa-solid fa-landmark"></i>
+              <span>GovTech Specialist</span>
+            </div>
+            <h3 class="card-title">Digitalisasi Layanan Publik</h3>
+            <p class="card-desc">
+              Pengalaman nyata dalam merancang portal pemerintahan Kabupaten Wonosobo, seperti Mall Pelayanan Publik (MPP), E-Agenda Pimpinan, Sobo Aksi, dan SPBE.
+            </p>
+            <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.825rem; color: var(--text-muted);">
+                <span>Kepatuhan Standar SPBE</span>
+                <span style="color: #34d399; font-weight: 700;">100% Terintegrasi</span>
+              </div>
+              <div style="height: 6px; background: rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden;">
+                <div style="width: 100%; height: 100%; background: linear-gradient(90deg, #10b981, #06b6d4);"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bento 4: The Think Tank & Philosophy -->
+          <div class="bento-card bento-card-medium">
+            <div class="card-glow"></div>
+            <div class="card-badge">
+              <i class="fa-solid fa-brain"></i>
+              <span>The Think Tank</span>
+            </div>
+            <h3 class="card-title">Isa Maulana: Logika & Seni</h3>
+            <p class="card-desc">
+              Lulusan S.Kom UKSW 2017 dan musisi. Sebagai think tank di balik SOULOFJAVA LABS, setiap sistem dirancang dengan ketelitian matematis dan presisi harmoni musik.
+            </p>
+            <div style="margin-top: 1.25rem; padding: 0.85rem 1rem; border-radius: 12px; background: rgba(168,85,247,0.08); border: 1px solid rgba(168,85,247,0.2); font-size: 0.825rem; color: #d8b4fe;">
+              <i class="fa-solid fa-quote-left mr-2"></i> Keteraturan logika menghasilkan stabilitas performa sistem jangka panjang.
+            </div>
+          </div>
+
+          <!-- Bento 5: Mobile App Development (Kotlin, Java, Flutter) -->
+          <div class="bento-card bento-card-medium">
+            <div class="card-glow"></div>
+            <div class="card-badge">
+              <i class="fa-solid fa-mobile-screen-button"></i>
+              <span>Mobile Engineering</span>
+            </div>
+            <h3 class="card-title">Native & Multiplatform Mobile</h3>
+            <p class="card-desc">
+              Tidak hanya web, saya berpengalaman membangun aplikasi mobile dengan <strong>Kotlin</strong> & <strong>Java</strong> untuk native Android, serta <strong>Flutter</strong> untuk aplikasi multiplatform (Android & iOS).
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem;">
+              <span class="project-tech-chip" style="font-size: 0.775rem;"><i class="fa-brands fa-android" style="color:#3ddc84; margin-right:4px;"></i> Kotlin Native</span>
+              <span class="project-tech-chip" style="font-size: 0.775rem;"><i class="fa-brands fa-java" style="color:#f89820; margin-right:4px;"></i> Java Android</span>
+              <span class="project-tech-chip" style="font-size: 0.775rem;"><i class="fa-solid fa-feather" style="color:#38bdf8; margin-right:4px;"></i> Flutter & Dart</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO / CAPABILITIES SHOWCASE SECTION -->
+    <section class="portfolio-section" id="works" style="position: relative; padding: 7rem 0; z-index: 5;">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="badge-mini">✦ CORE ENGINEERING CAPABILITIES ✦</span>
+          <h2 class="section-title">
+            Solusi Rekayasa Digital: <span class="text-gradient-purple">Web, Mobile & Arsitektur Cloud</span>
+          </h2>
+          <p class="section-subtitle">
+            Mengubah visi bisnis dan digitalisasi instansi menjadi produk perangkat lunak tangguh — dari portal web skala besar, aplikasi mobile Android & iOS, hingga microservices backend.
+          </p>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="portfolio-filter-row">
+          <button class="filter-btn active" data-filter="all">Semua Kapabilitas</button>
+          <button class="filter-btn" data-filter="web">Web Platform</button>
+          <button class="filter-btn" data-filter="mobile">Mobile (Kotlin / Java / Flutter)</button>
+          <button class="filter-btn" data-filter="backend">Backend & API</button>
+          <button class="filter-btn" data-filter="special">Media & GovTech</button>
+        </div>
+
+        <!-- Capabilities Grid -->
+        <div class="portfolio-grid">
+          <!-- Card 1: Enterprise Web Platform -->
+          <div class="project-card" data-category="web">
+            <div class="capability-header">
+              <div class="capability-icon-box">
+                <i class="fa-solid fa-layer-group text-gradient-purple"></i>
+              </div>
+              <span class="capability-tag-pill">Web Platform</span>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Enterprise Web Platform & SaaS</h3>
+              <p class="project-desc">
+                Arsitektur portal web modern, sistem multi-tenant terdistribusi, dashboard analitik real-time, dan aplikasi bisnis skala besar dengan performa rendering instan.
+              </p>
+              <ul class="capability-feature-list">
+                <li class="capability-feature-item"><i class="fa-solid fa-circle-check"></i> Clean Architecture & Domain-Driven Design</li>
+                <li class="capability-feature-item"><i class="fa-solid fa-circle-check"></i> Role-Based Access Control (RBAC) & Audit Log</li>
+                <li class="capability-feature-item"><i class="fa-solid fa-circle-check"></i> Ultra-Fluid UI (TailwindCSS, Vue.js, Vite)</li>
+              </ul>
+              <div class="project-tags">
+                <span class="project-tech-chip">Laravel</span>
+                <span class="project-tech-chip">PHP</span>
+                <span class="project-tech-chip">Vue.js</span>
+                <span class="project-tech-chip">MySQL</span>
+                <span class="project-tech-chip">TailwindCSS</span>
+              </div>
+              <a href="#contact" class="project-link-btn">
+                <span>Konsultasikan Kebutuhan Web</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2: Native Android Mobile -->
+          <div class="project-card" data-category="mobile">
+            <div class="capability-header">
+              <div class="capability-icon-box">
+                <i class="fa-brands fa-android" style="color: #3ddc84;"></i>
+              </div>
+              <span class="capability-tag-pill">Android Native</span>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Aplikasi Native Android (Kotlin & Java)</h3>
+              <p class="project-desc">
+                Aplikasi mobile native Android berkecepatan tinggi yang memaksimalkan utilisasi perangkat keras (kamera, geolokasi/GPS, sensor, background service, dan SQLite).
+              </p>
+              <ul class="capability-feature-list">
+                <li class="capability-feature-item"><i class="fa-solid fa-circle-check"></i> Android Jetpack, MVVM & Coroutines</li>
+                <li class="capability-feature-item"><i class="fa-solid fa-circle-check"></i> Offline-First Architecture dengan Room DB</li>
+                <li class="capability-feature-item"><i class="fa-solid fa-circle-check"></i> Manajemen Memori Efisien & Native Security</li>
+              </ul>
+              <div class="project-tags">
+                <span class="project-tech-chip">Kotlin</span>
+                <span class="project-tech-chip">Java</span>
+                <span class="project-tech-chip">Android SDK</span>
+                <span class="project-tech-chip">Room DB</span>
+                <span class="project-tech-chip">Retrofit</span>
+              </div>
+              <a href="#contact" class="project-link-btn">
+                <span>Konsultasikan Aplikasi Android</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 3: Cross-Platform Flutter Mobile -->
+          <div class="project-card" data-category="mobile">
+            <div class="capability-header">
+              <div class="capability-icon-box">
+                <i class="fa-solid fa-mobile-screen" style="color: #38bdf8;"></i>
+              </div>
+              <span class="capability-tag-pill">Cross-Platform</span>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Multiplatform Mobile (Flutter & Dart)</h3>
+              <p class="project-desc">
+                Pengembangan aplikasi mobile satu basis kode untuk Android & iOS dengan efisiensi tinggi, rendering 60/120 FPS tanpa lag, dan transisi animasi mikro yang mulus.
+              </p>
+              <ul class="capability-feature-list">
+                <li class="capability-feature-item"><i class="fa-solid fa-circle-check"></i> Single Codebase Multiplatform (Android & iOS)</li>
+                <li class="capability-feature-item"><i class="fa-solid fa-circle-check"></i> Robust State Management (BLoC / Provider)</li>
+                <li class="capability-feature-item"><i class="fa-solid fa-circle-check"></i> Real-time Cloud Sync & REST API Gateway</li>
+              </ul>
+              <div class="project-tags">
+                <span class="project-tech-chip">Flutter</span>
+                <span class="project-tech-chip">Dart</span>
+                <span class="project-tech-chip">Android & iOS</span>
+                <span class="project-tech-chip">BLoC</span>
+                <span class="project-tech-chip">Firebase</span>
+              </div>
+              <a href="#contact" class="project-link-btn">
+                <span>Konsultasikan Aplikasi Flutter</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 4: High-Throughput Backend & Microservices -->
+          <div class="project-card" data-category="backend">
+            <div class="capability-header">
+              <div class="capability-icon-box">
+                <i class="fa-solid fa-network-wired" style="color: #f97316;"></i>
+              </div>
+              <span class="capability-tag-pill">Backend & API</span>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Backend Microservices & REST API</h3>
+              <p class="project-desc">
+                Perancangan RESTful API, integrasi antar-sistem, dan engine backend berkecepatan tinggi yang tangguh terhadap lonjakan ribuan request per detik (RPS).
+              </p>
+              <ul class="capability-feature-list">
+                <li class="capability-feature-item"><i class="fa-solid fa-circle-check"></i> In-Memory Caching Redis & Queue Job Worker</li>
+                <li class="capability-feature-item"><i class="fa-solid fa-circle-check"></i> Optimasi Indeks Database & Query Plan</li>
+                <li class="capability-feature-item"><i class="fa-solid fa-circle-check"></i> Token Security (JWT, OAuth2, Rate Limiter)</li>
+              </ul>
+              <div class="project-tags">
+                <span class="project-tech-chip">Golang</span>
+                <span class="project-tech-chip">PHP</span>
+                <span class="project-tech-chip">Redis</span>
+                <span class="project-tech-chip">MySQL</span>
+                <span class="project-tech-chip">Docker</span>
+              </div>
+              <a href="#contact" class="project-link-btn">
+                <span>Konsultasikan Backend & API</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 5: Real-Time Streaming & Media Platforms -->
+          <div class="project-card" data-category="special">
+            <div class="capability-header">
+              <div class="capability-icon-box">
+                <i class="fa-solid fa-tower-broadcast" style="color: #ec4899;"></i>
+              </div>
+              <span class="capability-tag-pill">Streaming Media</span>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Live Streaming & Media Platforms</h3>
+              <p class="project-desc">
+                Pengembangan platform penyiaran media audio/video streaming real-time, background audio engine, dan sistem komunikasi data WebSocket berlatensi rendah.
+              </p>
+              <ul class="capability-feature-list">
+                <li class="capability-feature-item"><i class="fa-solid fa-circle-check"></i> Protokol Audio Streaming HLS/RTMP & WebSockets</li>
+                <li class="capability-feature-item"><i class="fa-solid fa-circle-check"></i> Resilient Connection & Auto-Reconnection</li>
+                <li class="capability-feature-item"><i class="fa-solid fa-circle-check"></i> CDN Media Delivery & Cloud Storage</li>
+              </ul>
+              <div class="project-tags">
+                <span class="project-tech-chip">WebSockets</span>
+                <span class="project-tech-chip">Nginx RTMP</span>
+                <span class="project-tech-chip">Laravel</span>
+                <span class="project-tech-chip">JavaScript</span>
+              </div>
+              <a href="#contact" class="project-link-btn">
+                <span>Konsultasikan Media Platform</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 6: GovTech & Public Sector Systems -->
+          <div class="project-card" data-category="special">
+            <div class="capability-header">
+              <div class="capability-icon-box">
+                <i class="fa-solid fa-landmark" style="color: #a855f7;"></i>
+              </div>
+              <span class="capability-tag-pill">GovTech Specialist</span>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Digitalisasi Layanan Publik (GovTech)</h3>
+              <p class="project-desc">
+                Solusi tata kelola digital terintegrasi untuk instansi pemerintahan dan korporat, mencakup portal perizinan terpadu, aspirasi publik, dan sistem manajemen birokrasi.
+              </p>
+              <ul class="capability-feature-list">
+                <li class="capability-feature-item"><i class="fa-solid fa-circle-check"></i> Kepatuhan Standar SPBE & Regulasi Keamanan</li>
+                <li class="capability-feature-item"><i class="fa-solid fa-circle-check"></i> Bridge Interoperabilitas Data Antar-Lembaga</li>
+                <li class="capability-feature-item"><i class="fa-solid fa-circle-check"></i> UI/UX Inklusif & Aksesibilitas Publik</li>
+              </ul>
+              <div class="project-tags">
+                <span class="project-tech-chip">GovTech</span>
+                <span class="project-tech-chip">Interoperability</span>
+                <span class="project-tech-chip">Multi-Tenant</span>
+                <span class="project-tech-chip">Security Audit</span>
+              </div>
+              <a href="#contact" class="project-link-btn">
+                <span>Konsultasikan Solusi GovTech</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE DEVELOPER PLAYGROUND & CLI TERMINAL -->
+    <section class="playground-section" id="playground">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="badge-mini">✦ INTERACTIVE PLAYGROUND ✦</span>
+          <h2 class="section-title">
+            Uji Coba <span class="text-gradient-orange">Developer CLI & Estimator</span>
+          </h2>
+          <p class="section-subtitle">
+            Ketik perintah langsung di terminal CLI virtual untuk memeriksa data pengembang, atau simulasikan estimasi timeline proyek digital Anda.
+          </p>
+        </div>
+
+        <div class="playground-output-area">
+          <!-- Terminal CLI Window -->
+          <div class="terminal-window">
+            <div class="terminal-header">
+              <div class="terminal-dots">
+                <div class="terminal-dot dot-red"></div>
+                <div class="terminal-dot dot-yellow"></div>
+                <div class="terminal-dot dot-green"></div>
+              </div>
+              <div class="terminal-title">thinktank@soulofjava-labs: ~ (bash)</div>
+              <div><i class="fa-solid fa-terminal text-gradient-purple"></i></div>
+            </div>
+
+            <div class="terminal-body" id="cli-output">
+              <div style="color: #94a3b8; margin-bottom: 0.75rem;">
+                Selamat datang di terminal interaktif <strong style="color: #fff;">SOULOFJAVA LABS</strong>.<br>
+                Think Tank & Principal Architect: <span style="color: #d8b4fe; font-weight: 700;">Isa Maulana Tantra, S.Kom</span>.<br>
+                Ketik <span style="color: #34d399; font-weight: 700;">help</span> atau klik salah satu tombol di bawah untuk menjalankan perintah.
+              </div>
+            </div>
+
+            <div class="cli-command-pills" style="padding: 0 1.5rem 0.75rem;">
+              <button class="cmd-pill" data-cmd="about">about</button>
+              <button class="cmd-pill" data-cmd="skills">skills</button>
+              <button class="cmd-pill" data-cmd="projects">projects</button>
+              <button class="cmd-pill" data-cmd="stats">stats</button>
+              <button class="cmd-pill" data-cmd="contact">contact</button>
+              <button class="cmd-pill" data-cmd="clear">clear</button>
+            </div>
+
+            <div class="terminal-input-row">
+              <span class="terminal-prefix">soj-labs:~$</span>
+              <input type="text" id="cli-input" class="terminal-input" placeholder="Ketik perintah (contoh: skills, projects, about)..." autocomplete="off" spellcheck="false">
+            </div>
+          </div>
+
+          <!-- Project Scope Estimator Sidebar -->
+          <div class="playground-sidebar">
+            <div class="sidebar-title">
+              <i class="fa-solid fa-calculator text-gradient-purple"></i>
+              <span>Kalkulator Estimasi Proyek</span>
+            </div>
+
+            <div class="sidebar-item">
+              <label class="form-label">Jenis Proyek yang Dibutuhkan</label>
+              <select id="est-type" class="form-select">
+                <option value="profile">Landing Page / Company Profile Modern</option>
+                <option value="govtech" selected>Sistem Informasi GovTech / Portal SPBE</option>
+                <option value="webapp">Custom Web App & High Concurrency API</option>
+                <option value="mobile">Aplikasi Mobile (Kotlin, Java, Flutter)</option>
+              </select>
+            </div>
+
+            <div class="sidebar-item" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 1.25rem; border-radius: 14px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <span style="font-size: 0.85rem; color: var(--text-muted);">Estimasi Timeline</span>
+                <span id="est-timeline" style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; color: #34d399;">4-6 Minggu</span>
+              </div>
+              <p style="font-size: 0.8rem; color: var(--text-dim); line-height: 1.5; margin: 0;">
+                Termasuk arsitektur database, secure authentication, role & permission, deployment server produksi, dan garansi pasca rilis.
+              </p>
+            </div>
+
+            <a id="btn-est-wa" href="#" target="_blank" class="btn btn-primary" style="justify-content: center; width: 100%;">
+              <i class="fa-brands fa-whatsapp"></i>
+              <span>Konsultasi Proyek Ini</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION (Apa Kata Mereka?) -->
+    <section class="testimonials-section" id="testimonials" style="position: relative; padding: 7rem 0; z-index: 5;">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="badge-mini">✦ REKOMENDASI & TESTIMONI ✦</span>
+          <h2 class="section-title">
+            Apa Kata <span class="text-gradient-purple">Rekan Kolaborasi?</span>
+          </h2>
+          <p class="section-subtitle">
+            Kesan dari rekan kerja developer dan devops yang telah bermitra dalam beragam proyek web dan sistem informasi.
+          </p>
+        </div>
+
+        <div class="testimonials-grid">
+          <!-- Testimonial 1 -->
+          <div class="testimonial-card">
+            <div>
+              <div class="testi-header">
+                <div class="testi-avatar-wrap">
+                  <img src="assets/imgs/avatar-1.jpg" alt="Layly Nurul" loading="lazy">
+                </div>
                 <div>
-                    <h3 class="text-2xl font-bold text-white mb-8">Keahlian</h3>
-                    <div class="space-y-6">
-                        <!-- Skill Item -->
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span class="text-white font-medium">PHP</span>
-                                <span class="text-primary">89%</span>
-                            </div>
-                            <div class="w-full bg-slate-800 rounded-full h-2.5">
-                                <div class="bg-gradient-to-r from-primary to-purple-500 h-2.5 rounded-full"
-                                    style="width: 89%"></div>
-                            </div>
-                        </div>
-                        <!-- Skill Item -->
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span class="text-white font-medium">Laravel</span>
-                                <span class="text-primary">83%</span>
-                            </div>
-                            <div class="w-full bg-slate-800 rounded-full h-2.5">
-                                <div class="bg-gradient-to-r from-primary to-purple-500 h-2.5 rounded-full"
-                                    style="width: 83%"></div>
-                            </div>
-                        </div>
-                        <!-- Skill Item -->
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span class="text-white font-medium">HTML & CSS</span>
-                                <span class="text-primary">95%</span>
-                            </div>
-                            <div class="w-full bg-slate-800 rounded-full h-2.5">
-                                <div class="bg-gradient-to-r from-primary to-purple-500 h-2.5 rounded-full"
-                                    style="width: 95%"></div>
-                            </div>
-                        </div>
-                        <!-- Skill Item -->
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span class="text-white font-medium">Javascript</span>
-                                <span class="text-primary">90%</span>
-                            </div>
-                            <div class="w-full bg-slate-800 rounded-full h-2.5">
-                                <div class="bg-gradient-to-r from-primary to-purple-500 h-2.5 rounded-full"
-                                    style="width: 95%"></div>
-                            </div>
-                        </div>
-                        <!-- Skill Item -->
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span class="text-white font-medium">Flutter</span>
-                                <span class="text-primary">85%</span>
-                            </div>
-                            <div class="w-full bg-slate-800 rounded-full h-2.5">
-                                <div class="bg-gradient-to-r from-primary to-purple-500 h-2.5 rounded-full"
-                                    style="width: 85%"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-8">
-                        <h4 class="text-white font-medium mb-4">Alat & Lainnya</h4>
-                        <div class="flex flex-wrap gap-2">
-                            <span
-                                class="px-3 py-1 bg-slate-800 rounded-lg text-sm text-slate-400 border border-slate-700">CodeIgniter</span>
-                            <span
-                                class="px-3 py-1 bg-slate-800 rounded-lg text-sm text-slate-400 border border-slate-700">MySQL</span>
-                            <span
-                                class="px-3 py-1 bg-slate-800 rounded-lg text-sm text-slate-400 border border-slate-700">Bootstrap</span>
-                            <span
-                                class="px-3 py-1 bg-slate-800 rounded-lg text-sm text-slate-400 border border-slate-700">Git</span>
-                            <span
-                                class="px-3 py-1 bg-slate-800 rounded-lg text-sm text-slate-400 border border-slate-700">TailwindCSS</span>
-                        </div>
-                    </div>
+                  <div class="testi-name">Layly Nurul</div>
+                  <div class="testi-role">DevOps Engineer</div>
                 </div>
+              </div>
+              <div class="testi-stars">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+              </div>
+              <p class="testi-text">
+                "Menyenangkan dapat bekerja sama dengan seorang Programmer yang hebat, komunikatif, dan selalu memikirkan kesiapan pipeline CI/CD serta deployment container di produksi."
+              </p>
             </div>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="testimonial-card" style="border-color: rgba(168,85,247,0.4); box-shadow: 0 10px 35px rgba(168,85,247,0.18);">
+            <div>
+              <div class="testi-header">
+                <div class="testi-avatar-wrap">
+                  <img src="assets/imgs/avatar-2.jpg" alt="Damar Wisnu" loading="lazy">
+                </div>
+                <div>
+                  <div class="testi-name">Damar Wisnu</div>
+                  <div class="testi-role">Back End Developer</div>
+                </div>
+              </div>
+              <div class="testi-stars">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+              </div>
+              <p class="testi-text">
+                "Sangat dapat diandalkan dalam hal bekerja. Tidak pernah putus asa dalam melacak akar masalah hingga tuntas dan menghilangkan bug aplikasi."
+              </p>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="testimonial-card">
+            <div>
+              <div class="testi-header">
+                <div class="testi-avatar-wrap">
+                  <img src="assets/imgs/avatar-3.jpg" alt="Devan Dewa" loading="lazy">
+                </div>
+                <div>
+                  <div class="testi-name">Devan Dewa</div>
+                  <div class="testi-role">Web Developer</div>
+                </div>
+              </div>
+              <div class="testi-stars">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+              </div>
+              <p class="testi-text">
+                "Programmer yang mempunyai banyak ide solutif, cepat menyesuaikan kondisi baru, dan memiliki dedikasi tinggi pada penyelesaian setiap tenggat proyek."
+              </p>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- Portfolio Section -->
-    <section id="works" class="py-24">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <span class="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">Portfolio</span>
-                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Karya Pilihan</h2>
-                <p class="text-slate-400 max-w-2xl mx-auto">Beberapa proyek website dan aplikasi yang telah saya
-                    kerjakan dengan dedikasi tinggi.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project Card 1 -->
-                <div
-                    class="group relative rounded-2xl overflow-hidden aspect-video bg-slate-800 border border-slate-700 hover:border-primary/50 transition-all duration-300">
-                    <!-- Skeleton -->
-                    <div class="absolute inset-0 bg-slate-700 animate-pulse z-10"></div>
-                    <img src="assets/imgs/project/pesonafm.png" alt="Pesona FM" loading="lazy" style="opacity: 0;"
-                        class="absolute inset-0 w-full h-full object-cover opacity-70 transition-transform duration-500 group-hover:scale-110 group-hover:opacity-40 z-20">
-                    <div
-                        class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-slate-900 via-slate-900/90 to-transparent translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <h3 class="text-xl font-bold text-white mb-1">Pesona FM</h3>
-                        <p class="text-sm text-slate-300 mb-4">Website Streaming Radio</p>
-                        <a href="https://pesonafm.wonosobokab.go.id/" target="_blank"
-                            class="inline-flex items-center text-primary text-sm font-medium hover:text-white transition-colors">
-                            Lihat Website <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
-                                </path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Project Card 2 -->
-                <div
-                    class="group relative rounded-2xl overflow-hidden aspect-video bg-slate-800 border border-slate-700 hover:border-primary/50 transition-all duration-300">
-                    <!-- Skeleton -->
-                    <div class="absolute inset-0 bg-slate-700 animate-pulse z-10"></div>
-                    <img src="assets/imgs/project/eagenda.png" alt="E-Agenda" loading="lazy" style="opacity: 0;"
-                        class="absolute inset-0 w-full h-full object-cover opacity-70 transition-transform duration-500 group-hover:scale-110 group-hover:opacity-40 z-20">
-                    <div
-                        class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-slate-900 via-slate-900/90 to-transparent translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <h3 class="text-xl font-bold text-white mb-1">E-Agenda</h3>
-                        <p class="text-sm text-slate-300 mb-4">Aplikasi Jadwal & Kegiatan</p>
-                        <a href="https://agenda.wonosobokab.go.id/" target="_blank"
-                            class="inline-flex items-center text-primary text-sm font-medium hover:text-white transition-colors">
-                            Lihat Aplikasi <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
-                                </path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Project Card 3 -->
-                <div
-                    class="group relative rounded-2xl overflow-hidden aspect-video bg-slate-800 border border-slate-700 hover:border-primary/50 transition-all duration-300">
-                    <!-- Skeleton -->
-                    <div class="absolute inset-0 bg-slate-700 animate-pulse z-10"></div>
-                    <img src="assets/imgs/project/soboaksi.png" alt="Sobo Aksi" loading="lazy" style="opacity: 0;"
-                        class="absolute inset-0 w-full h-full object-cover opacity-70 transition-transform duration-500 group-hover:scale-110 group-hover:opacity-40 z-20">
-                    <div
-                        class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-slate-900 via-slate-900/90 to-transparent translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <h3 class="text-xl font-bold text-white mb-1">Sobo Aksi</h3>
-                        <p class="text-sm text-slate-300 mb-4">Aplikasi Layanan Publik</p>
-                        <a href="https://sobo-aksi.wonosobokab.go.id/" target="_blank"
-                            class="inline-flex items-center text-primary text-sm font-medium hover:text-white transition-colors">
-                            Lihat Aplikasi <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
-                                </path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Project Card 4 -->
-                <div
-                    class="group relative rounded-2xl overflow-hidden aspect-video bg-slate-800 border border-slate-700 hover:border-primary/50 transition-all duration-300">
-                    <!-- Skeleton -->
-                    <div class="absolute inset-0 bg-slate-700 animate-pulse z-10"></div>
-                    <img src="assets/imgs/project/mpp.png" alt="MPP" loading="lazy" style="opacity: 0;"
-                        class="absolute inset-0 w-full h-full object-cover opacity-70 transition-transform duration-500 group-hover:scale-110 group-hover:opacity-40 z-20">
-                    <div
-                        class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-slate-900 via-slate-900/90 to-transparent translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <h3 class="text-xl font-bold text-white mb-1">Mall Pelayanan Publik</h3>
-                        <p class="text-sm text-slate-300 mb-4">Sistem Lowongan & Layanan</p>
-                        <a href="http://mppdev.wonosobokab.go.id/" target="_blank"
-                            class="inline-flex items-center text-primary text-sm font-medium hover:text-white transition-colors">
-                            Lihat Aplikasi <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
-                                </path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Project Card 5 -->
-                <div
-                    class="group relative rounded-2xl overflow-hidden aspect-video bg-slate-800 border border-slate-700 hover:border-primary/50 transition-all duration-300">
-                    <!-- Skeleton -->
-                    <div class="absolute inset-0 bg-slate-700 animate-pulse z-10"></div>
-                    <img src="assets/imgs/project/spbe.png" alt="SPBE" loading="lazy" style="opacity: 0;"
-                        class="absolute inset-0 w-full h-full object-cover opacity-70 transition-transform duration-500 group-hover:scale-110 group-hover:opacity-40 z-20">
-                    <div
-                        class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-slate-900 via-slate-900/90 to-transparent translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <h3 class="text-xl font-bold text-white mb-1">Website SPBE</h3>
-                        <p class="text-sm text-slate-300 mb-4">Sistem Pemerintahan Berbasis Elektronik</p>
-                        <a href="https://spbe.wonosobokab.go.id/" target="_blank"
-                            class="inline-flex items-center text-primary text-sm font-medium hover:text-white transition-colors">
-                            Lihat Website <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
-                                </path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Project Card 6 -->
-                <div
-                    class="group relative rounded-2xl overflow-hidden aspect-video bg-slate-800 border border-slate-700 hover:border-primary/50 transition-all duration-300">
-                    <!-- Skeleton -->
-                    <div class="absolute inset-0 bg-slate-700 animate-pulse z-10"></div>
-                    <img src="assets/imgs/project/siparekraf.png" alt="Siparekraf" loading="lazy" style="opacity: 0;"
-                        class="absolute inset-0 w-full h-full object-cover opacity-70 transition-transform duration-500 group-hover:scale-110 group-hover:opacity-40 z-20">
-                    <div
-                        class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-slate-900 via-slate-900/90 to-transparent translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <h3 class="text-xl font-bold text-white mb-1">Siparekraf</h3>
-                        <p class="text-sm text-slate-300 mb-4">Sistem Informasi Pariwisata</p>
-                        <a href="https://siparekraf.wonosobokab.go.id/" target="_blank"
-                            class="inline-flex items-center text-primary text-sm font-medium hover:text-white transition-colors">
-                            Lihat Website <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
-                                </path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-12 text-center">
-                <p class="text-slate-400 mb-6">Dan masih banyak lagi proyek menarik lainnya...</p>
-                <a href="https://github.com/soulofjava" target="_blank"
-                    class="inline-flex items-center px-6 py-3 rounded-full border border-slate-600 hover:border-white hover:bg-white hover:text-black transition-all text-sm font-medium">
-                    Lihat Github Saya <i class="ti-github ml-2"></i>
-                </a>
-            </div>
+    <!-- CONTACT SECTION -->
+    <section class="contact-section" id="contact" style="position: relative; padding: 7rem 0 8rem; z-index: 5;">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="badge-mini">✦ HUBUNGI & BERKOLABORASI ✦</span>
+          <h2 class="section-title">
+            Mari Bekerja Sama <span class="text-gradient-purple">Mewujudkan Solusi Anda</span>
+          </h2>
+          <p class="section-subtitle">
+            Tertarik untuk mengembangkan website kustom, digitalisasi layanan instansi, atau sistem informasi berkinerja tinggi? Jangan ragu untuk menghubungi saya.
+          </p>
         </div>
-    </section>
 
-    <!-- Testimonials -->
-    <section class="py-24 bg-slate-900/50 relative overflow-hidden">
-        <!-- Decoration -->
-        <div class="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -z-10"></div>
+        <div class="contact-hub-grid">
+          <!-- Contact Cards -->
+          <div class="contact-cards-col">
+            <a href="https://api.whatsapp.com/send?phone=6285643710007" target="_blank" class="contact-info-card">
+              <div class="contact-icon-box" style="color: #34d399; background: rgba(52,211,153,0.12); border-color: rgba(52,211,153,0.3);">
+                <i class="fa-brands fa-whatsapp"></i>
+              </div>
+              <div>
+                <div class="contact-info-title">WhatsApp Langsung</div>
+                <div class="contact-info-val">0856-4371-0007</div>
+              </div>
+            </a>
 
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <h2 class="text-3xl font-bold text-white mb-12">Apa Kata Mereka?</h2>
+            <a href="mailto:isamaulanatantra@gmail.com" class="contact-info-card">
+              <div class="contact-icon-box" style="color: #38bdf8; background: rgba(56,189,248,0.12); border-color: rgba(56,189,248,0.3);">
+                <i class="fa-solid fa-envelope"></i>
+              </div>
+              <div>
+                <div class="contact-info-title">Email Resmi</div>
+                <div class="contact-info-val">isamaulanatantra@gmail.com</div>
+              </div>
+            </a>
 
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="glass p-6 rounded-2xl text-left">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div
-                            class="relative w-12 h-12 rounded-full overflow-hidden ring-2 ring-primary/50 bg-slate-800 shrink-0">
-                            <div class="absolute inset-0 bg-slate-700 animate-pulse z-10"></div>
-                            <img src="assets/imgs/avatar-1.jpg" alt="Layly" loading="lazy" style="opacity: 0;"
-                                class="w-full h-full object-cover transition-opacity duration-300 relative z-20">
-                        </div>
-                        <div>
-                            <h4 class="text-white font-bold text-sm">Layly Nurul</h4>
-                            <p class="text-xs text-slate-400">DevOps</p>
-                        </div>
-                    </div>
-                    <p class="text-slate-300 text-sm italic">"Menyenangkan dapat bekerja sama dengan seorang Programmer
-                        yang hebat."</p>
-                </div>
-
-                <div class="glass p-6 rounded-2xl text-left scale-105 border-primary/30 shadow-lg shadow-primary/10">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div
-                            class="relative w-12 h-12 rounded-full overflow-hidden ring-2 ring-primary/50 bg-slate-800 shrink-0">
-                            <div class="absolute inset-0 bg-slate-700 animate-pulse z-10"></div>
-                            <img src="assets/imgs/avatar-2.jpg" alt="Damar" loading="lazy" style="opacity: 0;"
-                                class="w-full h-full object-cover transition-opacity duration-300 relative z-20">
-                        </div>
-                        <div>
-                            <h4 class="text-white font-bold text-sm">Damar Wisnu</h4>
-                            <p class="text-xs text-slate-400">Back End Developer</p>
-                        </div>
-                    </div>
-                    <p class="text-slate-300 text-sm italic">"Sangat dapat diandalkan dalam hal bekerja. Tidak pernah
-                        putus asa dalam menghilangkan Bug Aplikasi."</p>
-                </div>
-
-                <div class="glass p-6 rounded-2xl text-left">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div
-                            class="relative w-12 h-12 rounded-full overflow-hidden ring-2 ring-primary/50 bg-slate-800 shrink-0">
-                            <div class="absolute inset-0 bg-slate-700 animate-pulse z-10"></div>
-                            <img src="assets/imgs/avatar-3.jpg" alt="Devan" loading="lazy" style="opacity: 0;"
-                                class="w-full h-full object-cover transition-opacity duration-300 relative z-20">
-                        </div>
-                        <div>
-                            <h4 class="text-white font-bold text-sm">Devan Dewa</h4>
-                            <p class="text-xs text-slate-400">Web Developer</p>
-                        </div>
-                    </div>
-                    <p class="text-slate-300 text-sm italic">"Programmer yang mempunyai banyak ide dan cepat
-                        menyesuaikan kondisi."</p>
-                </div>
+            <div class="contact-info-card">
+              <div class="contact-icon-box" style="color: #ec4899; background: rgba(236,72,153,0.12); border-color: rgba(236,72,153,0.3);">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <div>
+                <div class="contact-info-title">Lokasi Kerja</div>
+                <div class="contact-info-val">Wonosobo, Jawa Tengah, Indonesia</div>
+              </div>
             </div>
+
+            <a href="https://github.com/soulofjava" target="_blank" class="contact-info-card">
+              <div class="contact-icon-box">
+                <i class="fa-brands fa-github"></i>
+              </div>
+              <div>
+                <div class="contact-info-title">Koleksi Repository</div>
+                <div class="contact-info-val">github.com/soulofjava</div>
+              </div>
+            </a>
+          </div>
+
+          <!-- Direct Form Card -->
+          <div class="contact-form-card">
+            <h3 style="font-family: var(--font-display); font-size: 1.45rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem;">
+              Kirim Pesan Langsung
+            </h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+              Formulir ini akan otomatis merangkum pesan dan mengarahkan Anda ke ruang obrolan WhatsApp terenkripsi.
+            </p>
+
+            <form id="contact-form">
+              <div class="form-group">
+                <label class="form-label">Nama Lengkap / Instansi</label>
+                <input type="text" id="form-name" class="form-input" placeholder="Masukkan nama atau nama dinas/perusahaan Anda" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Email atau Nomor Telepon</label>
+                <input type="text" id="form-email" class="form-input" placeholder="Contoh: user@domain.com atau 08123456789" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Kategori Layanan</label>
+                <select id="form-service" class="form-select">
+                  <option value="Pengembangan Website & Sistem Informasi">Pengembangan Website & Sistem Informasi</option>
+                  <option value="Digitalisasi Layanan Publik (GovTech)">Digitalisasi Layanan Publik (GovTech)</option>
+                  <option value="Aplikasi Mobile (Kotlin / Java / Flutter)">Aplikasi Mobile (Kotlin / Java / Flutter)</option>
+                  <option value="Konsultasi Arsitektur Backend & Database">Konsultasi Arsitektur Backend & Database</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Detail Kebutuhan / Pesan</label>
+                <textarea id="form-message" class="form-textarea" placeholder="Jelaskan kebutuhan proyek atau ide yang ingin Anda kembangkan..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary w-full" style="justify-content: center; padding: 0.95rem;">
+                <span>Kirim via WhatsApp</span>
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </form>
+          </div>
         </div>
+      </div>
     </section>
+  </main>
 
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-24 relative">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6">
-            <div class="glass rounded-3xl p-8 md:p-12 text-center border border-white/10">
-                <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">Mari Bekerja Sama</h2>
-                <p class="text-slate-300 mb-10 text-lg">Tertarik untuk membuat website atau aplikasi impian Anda menjadi
-                    kenyataan? Jangan ragu untuk menghubungi saya.</p>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-                    <div class="flex flex-col items-center">
-                        <div
-                            class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center text-primary mb-3">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
-                                </path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            </svg>
-                        </div>
-                        <h4 class="text-white font-bold mb-1">Lokasi</h4>
-                        <p class="text-slate-400 text-sm">Wonosobo, Jawa Tengah</p>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div
-                            class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center text-primary mb-3">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                </path>
-                            </svg>
-                        </div>
-                        <h4 class="text-white font-bold mb-1">Email</h4>
-                        <a href="mailto:isamaulanatantra@gmail.com"
-                            class="text-slate-400 text-sm hover:text-primary transition-colors">isamaulanatantra@gmail.com</a>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <div
-                            class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center text-primary mb-3">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
-                                </path>
-                            </svg>
-                        </div>
-                        <h4 class="text-white font-bold mb-1">WhatsApp</h4>
-                        <a href="https://api.whatsapp.com/send?phone=6285643710007" target="_blank"
-                            class="text-slate-400 text-sm hover:text-primary transition-colors">085643710007</a>
-                    </div>
-                </div>
-
-                <a href="https://api.whatsapp.com/send?phone=6285643710007&text=Halo%2C%20saya%20ingin%20bekerja%20sama%20dengan%20anda%20untuk%20pembuatan%20website."
-                    target="_blank"
-                    class="inline-block px-10 py-4 bg-primary text-white font-bold rounded-full shadow-lg shadow-primary/30 hover:bg-primary/90 hover:scale-105 transition-all">
-                    Hubungi Saya Sekarang
-                </a>
-            </div>
+  <!-- MODERN FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand">
+            <span class="brand-name">SOULOFJAVA<span>.LABS</span></span>
+          </div>
+          <p class="footer-tagline">
+            Digital Engineering & Software Research Studio. Dipimpin oleh Isa Maulana Tantra (Think Tank & Principal Architect).
+          </p>
+          <div class="footer-status-pill">
+            <span class="status-indicator-dot"></span>
+            <span>All Systems Operational • Open for Enterprise, GovTech & Mobile Projects</span>
+          </div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="py-8 border-t border-slate-800 text-center">
-        <p class="text-slate-500 text-sm">
-            &copy;
-            <script>document.write(new Date().getFullYear())</script> Isa Maulana Tantra. All rights reserved. <br>
-            Designed with <span class="text-red-500">♥</span> using TailwindCSS.
-        </p>
-    </footer>
+        <div class="footer-nav-grid">
+          <div class="footer-col">
+            <h5>Navigasi</h5>
+            <a href="#hero">Beranda</a>
+            <a href="#bento">Keahlian</a>
+            <a href="#works">Karya Pilihan</a>
+            <a href="#playground">Terminal & Estimator</a>
+          </div>
+          <div class="footer-col">
+            <h5>Keahlian</h5>
+            <a href="#showcase">Laravel</a>
+            <a href="#showcase">PHP & Go</a>
+            <a href="#showcase">Kotlin, Java & Flutter</a>
+            <a href="#showcase">MySQL, Redis & Docker</a>
+          </div>
+          <div class="footer-col">
+            <h5>Solusi Rekayasa</h5>
+            <a href="#works">Web Platform & SaaS</a>
+            <a href="#works">Android (Kotlin & Java)</a>
+            <a href="#works">Multiplatform Flutter</a>
+            <a href="#works">Backend & REST API</a>
+          </div>
+          <div class="footer-col">
+            <h5>Koneksi</h5>
+            <a href="https://github.com/soulofjava" target="_blank">GitHub</a>
+            <a href="https://www.instagram.com/isamaulanatantra/?hl=id" target="_blank">Instagram</a>
+            <a href="https://www.youtube.com/channel/UCzAqbET_jZbJFjZGyv2dQxA" target="_blank">YouTube</a>
+            <a href="https://api.whatsapp.com/send?phone=6285643710007" target="_blank">WhatsApp</a>
+          </div>
+        </div>
+      </div>
 
+      <div class="footer-bottom">
+        <div class="footer-copy">
+          &copy; <script>document.write(new Date().getFullYear())</script> SOULOFJAVA LABS • Think Tank: Isa Maulana Tantra, S.Kom. Hak cipta dilindungi.
+        </div>
+        <div class="footer-legal">
+          <a href="#hero">Kembali ke Atas ↑</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
 </body>
 
 </html>
